@@ -6,16 +6,34 @@ import CookieConsent from "@/components/CookieConsent";
 import CustomCursor from "@/components/CustomCursor";
 
 export const metadata: Metadata = {
-  title: "Mysélf — Musik, die bewegt",
+  metadataBase: new URL("https://myself-official.com"),
+  title: "Mysélf | Offizielle Website",
   description:
-    "Offizielle Website von Mysélf. Newcomer-Sängerin aus Deutschland. Entdecke Musik, Tour-Dates, Merch und mehr.",
-  keywords: ["Mysélf", "Sängerin", "Musik", "Newcomer", "Deutsch", "Tour"],
+    "Die Stimme einer neuen Ära. Entdecke die offizielle Website von Mysélf: Exklusive Musik-Releases, limitierte Shop-Drops und Tour-Dates.",
+  keywords: ["Mysélf", "Musik", "Fuego En El Aire", "Offizielle Website", "Tour", "Künstler"],
   openGraph: {
-    title: "Mysélf — Musik, die bewegt",
+    title: "Mysélf | Offizielle Website",
     description:
-      "Offizielle Website von Mysélf. Newcomer-Sängerin aus Deutschland.",
-    type: "website",
+      "Die Stimme einer neuen Ära. Entdecke die offizielle Website von Mysélf: Exklusive Musik-Releases, limitierte Shop-Drops und Tour-Dates.",
+    url: "https://myself-official.com",
+    siteName: "Mysélf Official",
+    images: [
+      {
+        url: "/fuegoenelairecover.png",
+        width: 1200,
+        height: 1200,
+        alt: "Mysélf - Offizielle Website",
+      },
+    ],
     locale: "de_DE",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Mysélf | Offizielle Website",
+    description:
+      "Die Stimme einer neuen Ära. Entdecke die offizielle Website von Mysélf: Exklusive Musik-Releases, limitierte Shop-Drops und Tour-Dates.",
+    images: ["/fuegoenelairecover.png"],
   },
 };
 
