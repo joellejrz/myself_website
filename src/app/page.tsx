@@ -1,7 +1,7 @@
 import HeroSection from '@/components/HeroSection';
 import ShopSection from '@/components/ShopSection';
 import TourSection from '@/components/TourSection';
-import NewsletterSection from '@/components/NewsletterSection';
+import MusicSection from '@/components/MusicSection';
 import BentoGrid from '@/components/BentoGrid';
 
 export default function Home() {
@@ -10,7 +10,7 @@ export default function Home() {
       <HeroSection />
       <ShopSection />
       <TourSection />
-      <NewsletterSection />
+      <MusicSection />
       <BentoGrid />
     </main>
   );

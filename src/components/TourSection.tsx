@@ -39,25 +39,11 @@ const tourDates = [
     date: '24',
     month: 'April',
     year: '2026',
-    city: 'Darmstadt',
-    venue: 'Centralstation',
-    status: 'available' as const,
-  },
-  {
-    date: '25',
-    month: 'April',
-    year: '2026',
-    city: 'Frankfurt',
-    venue: 'Batschkapp',
-    status: 'available' as const,
-  },
-  {
-    date: '26',
-    month: 'April',
-    year: '2026',
-    city: 'Odenwald',
-    venue: 'Kommt bald',
-    status: 'soon' as const,
+    venue: 'KE RIKO',
+    city: 'Michelstadt, Deutschland',
+    address: 'Kellereibergstrasse 2',
+    time: '22:00 Uhr',
+    status: 'free' as const,
   },
 ];
 
@@ -211,22 +197,50 @@ export default function TourSection() {
                         letterSpacing: '0.05em',
                       }}
                     >
-                      {show.city}
+                      {show.venue}
                     </h3>
                     <p
                       style={{
                         fontFamily: 'var(--font-body)',
                         fontSize: '0.85rem',
                         color: 'var(--text-dim)',
+                        marginTop: '4px',
                       }}
                     >
-                      {show.venue}
+                      {show.city}
+                    </p>
+                    <p
+                      style={{
+                        fontFamily: 'var(--font-body)',
+                        fontSize: '0.75rem',
+                        color: 'var(--text-dim)',
+                        opacity: 0.8,
+                        marginTop: '2px',
+                      }}
+                    >
+                      {show.address} • Beginn: {show.time}
                     </p>
                   </div>
                 </div>
 
-                {/* Ticket Button */}
-                {show.status === 'available' ? (
+                {/* Ticket/Status Button */}
+                {show.status === 'free' ? (
+                  <span
+                    style={{
+                      padding: '10px 24px',
+                      color: 'var(--accent)',
+                      border: '1px solid var(--accent)',
+                      fontFamily: 'var(--font-heading)',
+                      fontSize: '0.7rem',
+                      fontWeight: 600,
+                      letterSpacing: '0.15em',
+                      textTransform: 'uppercase',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    Eintritt frei
+                  </span>
+                ) : show.status === 'available' ? (
                   <a
                     href="#"
                     style={{
@@ -245,13 +259,11 @@ export default function TourSection() {
                       whiteSpace: 'nowrap',
                     }}
                     onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLElement).style.background =
-                        'var(--accent)';
+                      (e.currentTarget as HTMLElement).style.background = 'var(--accent)';
                       (e.currentTarget as HTMLElement).style.color = 'var(--bg)';
                     }}
                     onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLElement).style.background =
-                        'transparent';
+                      (e.currentTarget as HTMLElement).style.background = 'transparent';
                       (e.currentTarget as HTMLElement).style.color = 'var(--accent)';
                     }}
                   >

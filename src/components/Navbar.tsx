@@ -104,7 +104,7 @@ export default function Navbar() {
         >
           {/* Logo */}
           <a
-            href="#"
+            href="/"
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -254,21 +254,26 @@ export default function Navbar() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0, x: '100%' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: '100%' }}
+            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
             style={{
               position: 'fixed',
-              inset: 0,
+              top: 0,
+              right: 0,
+              bottom: 0,
+              width: '100%',
+              maxWidth: '350px',
               zIndex: 99,
               background: 'rgba(10, 10, 10, 0.98)',
               backdropFilter: 'blur(30px)',
+              borderLeft: '1px solid rgba(255,255,255,0.05)',
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '32px',
+              alignItems: 'flex-start',
+              padding: '120px 40px 40px 40px',
+              gap: '40px',
             }}
           >
             {navLinks.map((link, i) => (

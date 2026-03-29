@@ -8,6 +8,7 @@ export default function HeroSection() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [touchStartY, setTouchStartY] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [isMuted, setIsMuted] = useState(true); // Default strictly true for autoplay policies
   const sectionRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -129,7 +130,7 @@ export default function HeroSection() {
           }}
         >
           <iframe
-            src="https://www.youtube.com/embed/_3eDIZjvJuA?autoplay=1&mute=1&loop=1&controls=0&rel=0&disablekb=1&fs=0&modestbranding=1&playsinline=1&playlist=_3eDIZjvJuA"
+            src={`https://www.youtube.com/embed/_3eDIZjvJuA?autoplay=1&mute=${isMuted ? 1 : 0}&loop=1&controls=0&rel=0&disablekb=1&fs=0&modestbranding=1&playsinline=1&playlist=_3eDIZjvJuA`}
             style={{
               position: 'absolute',
               top: '50%',
@@ -153,8 +154,57 @@ export default function HeroSection() {
               inset: 0,
               background: `linear-gradient(180deg, rgba(10,10,10,${overlayOpacity}) 0%, rgba(10,10,10,${overlayOpacity * 0.7}) 50%, rgba(10,10,10,${overlayOpacity * 1.2}) 100%)`,
               transition: 'opacity 0.2s ease',
+              pointerEvents: 'none',
             }}
           />
+
+          {/* Sound Toggle Button */}
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              setIsMuted(!isMuted);
+            }}
+            aria-label={isMuted ? 'Ton einschalten' : 'Ton ausschalten'}
+            style={{
+              position: 'absolute',
+              bottom: '24px',
+              right: '24px',
+              zIndex: 20,
+              background: 'rgba(10,10,10,0.5)',
+              border: '1px solid rgba(255,255,255,0.2)',
+              borderRadius: '50%',
+              width: '48px',
+              height: '48px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'var(--text)',
+              cursor: 'none',
+              backdropFilter: 'blur(10px)',
+              transition: 'background 0.3s ease, transform 0.3s ease',
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.background = 'rgba(10,10,10,0.8)';
+              (e.currentTarget as HTMLButtonElement).style.transform = 'scale(1.1)';
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.background = 'rgba(10,10,10,0.5)';
+              (e.currentTarget as HTMLButtonElement).style.transform = 'scale(1)';
+            }}
+          >
+            {isMuted ? (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <line x1="23" y1="9" x2="17" y2="15"></line>
+                <line x1="17" y1="9" x2="23" y2="15"></line>
+              </svg>
+            ) : (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+              </svg>
+            )}
+          </button>
         </div>
 
         {/* Text overlay */}
