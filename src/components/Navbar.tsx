@@ -58,7 +58,7 @@ export default function Navbar() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
@@ -141,11 +141,11 @@ export default function Navbar() {
           {/* Desktop Nav */}
           <div
             style={{
-              display: 'flex',
+              display: isMobile ? 'none' : 'flex',
               alignItems: 'center',
               gap: '40px',
             }}
-            className="hidden md:flex"
+            className="hidden lg:flex"
           >
             {navLinks.map((link) => (
               <a
@@ -178,11 +178,11 @@ export default function Navbar() {
           {/* Socials */}
           <div
             style={{
-              display: 'flex',
+              display: isMobile ? 'none' : 'flex',
               alignItems: 'center',
               gap: '16px',
             }}
-            className="hidden md:flex"
+            className="hidden lg:flex"
           >
             {socialLinks.map((social) => (
               <a
