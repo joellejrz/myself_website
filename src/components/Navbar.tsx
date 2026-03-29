@@ -55,6 +55,14 @@ const socialLinks = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -99,12 +107,18 @@ export default function Navbar() {
             padding: '0 24px',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'space-between',
+            justifyContent: isMobile ? 'center' : 'space-between',
           }}
         >
           {/* Logo */}
           <a
-            href="/"
+            href={isMobile ? "#" : "/"}
+            onClick={(e) => {
+              if (isMobile) {
+                e.preventDefault();
+                setMobileOpen(true);
+              }
+            }}
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -198,36 +212,7 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label={mobileOpen ? 'Menü schließen' : 'Menü öffnen'}
-            style={{
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              padding: '12px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: 'var(--text)',
-              zIndex: 101, // Ensure it's above the overlay
-            }}
-          >
-            {mobileOpen ? (
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
-            ) : (
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="3" y1="12" x2="21" y2="12"></line>
-                <line x1="3" y1="6" x2="21" y2="6"></line>
-                <line x1="3" y1="18" x2="21" y2="18"></line>
-              </svg>
-            )}
-          </button>
+          {/* Mobile Menu Button - Removed on request, Logo now triggers menu */}
         </div>
       </motion.nav>
 
@@ -235,78 +220,112 @@ export default function Navbar() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, x: '100%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
             style={{
               position: 'fixed',
-              top: 0,
-              right: 0,
-              bottom: 0,
-              width: '100%',
-              maxWidth: '350px',
-              zIndex: 99,
-              background: 'rgba(10, 10, 10, 0.98)',
-              backdropFilter: 'blur(30px)',
-              borderLeft: '1px solid rgba(255,255,255,0.05)',
+              inset: 0,
+              zIndex: 999,
+              background: '#000000',
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'flex-start',
-              padding: '120px 40px 40px 40px',
-              gap: '40px',
+              padding: '60px 40px',
             }}
           >
-            {navLinks.map((link, i) => (
+            {/* Huge X Button */}
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '80px' }}>
+              <button
+                onClick={() => setMobileOpen(false)}
+                aria-label="Menü schließen"
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: 'var(--text)',
+                  cursor: 'pointer',
+                  padding: '20px',
+                }}
+              >
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+
+            {/* Left Aligned Links */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '40px', alignItems: 'flex-start' }}>
               <motion.a
-                key={link.label}
-                href={link.href}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ delay: i * 0.1 }}
+                href="/"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ delay: 0.1 }}
                 onClick={() => setMobileOpen(false)}
                 style={{
                   color: 'var(--text)',
                   textDecoration: 'none',
                   fontFamily: 'var(--font-heading)',
-                  fontSize: '2rem',
-                  fontWeight: 700,
-                  letterSpacing: '0.1em',
+                  fontSize: '1.2rem',
+                  fontWeight: 500,
+                  letterSpacing: '0.2em',
                   textTransform: 'uppercase',
                 }}
               >
-                {link.label}
+                Home
               </motion.a>
-            ))}
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-              style={{
-                display: 'flex',
-                gap: '24px',
-                marginTop: '20px',
-              }}
-            >
-              {socialLinks.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={social.label}
+              {navLinks.map((link, i) => (
+                <motion.a
+                  key={link.label}
+                  href={link.href}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ delay: (i + 2) * 0.1 }}
+                  onClick={() => setMobileOpen(false)}
                   style={{
-                    color: 'var(--text-dim)',
-                    display: 'flex',
-                    alignItems: 'center',
+                    color: 'var(--text)',
+                    textDecoration: 'none',
+                    fontFamily: 'var(--font-heading)',
+                    fontSize: '1.2rem',
+                    fontWeight: 500,
+                    letterSpacing: '0.2em',
+                    textTransform: 'uppercase',
                   }}
                 >
-                  {social.icon}
-                </a>
+                  {link.label}
+                </motion.a>
               ))}
-            </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.6 }}
+                style={{
+                  display: 'flex',
+                  gap: '24px',
+                  marginTop: '40px',
+                }}
+              >
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.label}
+                    style={{
+                      color: 'var(--text-dim)',
+                      display: 'flex',
+                      alignItems: 'center',
+                    }}
+                  >
+                    {social.icon}
+                  </a>
+                ))}
+              </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
