@@ -271,44 +271,6 @@ export default function HeroSection() {
           >
             Die Stimme einer neuen Ära
           </motion.p>
-
-          <motion.a
-            href="https://www.youtube.com/watch?v=_3eDIZjvJuA"
-            target="_blank"
-            rel="noopener noreferrer"
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 1 }}
-            style={{
-              marginTop: '40px',
-              padding: '14px 32px',
-              border: '1px solid rgba(255,255,255,0.2)',
-              borderRadius: '50px',
-              color: 'var(--text)',
-              fontFamily: 'var(--font-heading)',
-              fontSize: '0.75rem',
-              fontWeight: 600,
-              letterSpacing: '0.15em',
-              textTransform: 'uppercase',
-              textDecoration: 'none',
-              backdropFilter: 'blur(10px)',
-              background: 'rgba(10,10,10,0.3)',
-              cursor: 'none',
-              transition: 'all 0.3s ease',
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.1)';
-              (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.4)';
-              (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)';
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.background = 'rgba(10,10,10,0.3)';
-              (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.2)';
-              (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
-            }}
-          >
-            Vollständiges Musikvideo ansehen
-          </motion.a>
         </div>
 
         {/* Scroll indicator */}
