@@ -55,12 +55,14 @@ export default function CustomCursor() {
 
   return (
     <>
-      {/* Dot */}
-      <motion.div
+      {/* Logo Cursor */}
+      <motion.img
+        src="/myselflogo2.png"
+        alt=""
         animate={{
-          x: mousePos.x - 4,
-          y: mousePos.y - 4,
-          scale: isHovering ? 0.5 : 1,
+          x: mousePos.x - 24, // Center image on cursor (approximate 48px width)
+          y: mousePos.y - 12, // Adjusted vertically
+          scale: isHovering ? 1.4 : 1,
           opacity: isVisible ? 1 : 0,
         }}
         transition={{ type: 'spring', stiffness: 500, damping: 28 }}
@@ -68,36 +70,11 @@ export default function CustomCursor() {
           position: 'fixed',
           top: 0,
           left: 0,
-          width: '8px',
-          height: '8px',
-          borderRadius: '50%',
-          background: 'var(--accent)',
+          width: '48px',
+          height: 'auto',
           pointerEvents: 'none',
           zIndex: 9999,
-          mixBlendMode: 'difference',
-        }}
-      />
-
-      {/* Ring */}
-      <motion.div
-        animate={{
-          x: mousePos.x - 20,
-          y: mousePos.y - 20,
-          scale: isHovering ? 1.8 : 1,
-          opacity: isVisible ? 1 : 0,
-        }}
-        transition={{ type: 'spring', stiffness: 180, damping: 20 }}
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '40px',
-          height: '40px',
-          borderRadius: '50%',
-          border: `1px solid ${isHovering ? 'var(--accent)' : 'rgba(201, 168, 76, 0.4)'}`,
-          pointerEvents: 'none',
-          zIndex: 9998,
-          transition: 'border-color 0.3s ease',
+          filter: 'drop-shadow(0px 4px 6px rgba(0,0,0,0.5))',
         }}
       />
     </>

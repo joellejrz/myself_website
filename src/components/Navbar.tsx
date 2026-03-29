@@ -202,50 +202,31 @@ export default function Navbar() {
           <button
             className="md:hidden"
             onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Menü öffnen"
+            aria-label={mobileOpen ? 'Menü schließen' : 'Menü öffnen'}
             style={{
               background: 'none',
               border: 'none',
               cursor: 'pointer',
-              padding: 8,
+              padding: '12px',
               display: 'flex',
-              flexDirection: 'column',
-              gap: '6px',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'var(--text)',
+              zIndex: 101, // Ensure it's above the overlay
             }}
           >
-            <motion.span
-              animate={{
-                rotate: mobileOpen ? 45 : 0,
-                y: mobileOpen ? 9 : 0,
-              }}
-              style={{
-                display: 'block',
-                width: '24px',
-                height: '1.5px',
-                background: 'var(--text)',
-              }}
-            />
-            <motion.span
-              animate={{ opacity: mobileOpen ? 0 : 1 }}
-              style={{
-                display: 'block',
-                width: '24px',
-                height: '1.5px',
-                background: 'var(--text)',
-              }}
-            />
-            <motion.span
-              animate={{
-                rotate: mobileOpen ? -45 : 0,
-                y: mobileOpen ? -9 : 0,
-              }}
-              style={{
-                display: 'block',
-                width: '24px',
-                height: '1.5px',
-                background: 'var(--text)',
-              }}
-            />
+            {mobileOpen ? (
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            ) : (
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg>
+            )}
           </button>
         </div>
       </motion.nav>

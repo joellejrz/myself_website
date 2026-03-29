@@ -225,21 +225,36 @@ export default function TourSection() {
 
                 {/* Ticket/Status Button */}
                 {show.status === 'free' ? (
-                  <span
+                  <a
+                    href="https://www.instagram.com/reel/DWRzq9mjA1F/?igsh=MTgwNzc1NHBnNDhvdQ%3D%3D"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     style={{
                       padding: '10px 24px',
-                      color: 'var(--accent)',
+                      color: 'var(--bg)',
+                      background: 'var(--accent)',
                       border: '1px solid var(--accent)',
                       fontFamily: 'var(--font-heading)',
                       fontSize: '0.7rem',
                       fontWeight: 600,
                       letterSpacing: '0.15em',
                       textTransform: 'uppercase',
+                      textDecoration: 'none',
                       whiteSpace: 'nowrap',
+                      transition: 'all 0.3s ease',
+                      cursor: 'none',
+                    }}
+                    onMouseEnter={(e) => {
+                      (e.currentTarget as HTMLElement).style.background = 'transparent';
+                      (e.currentTarget as HTMLElement).style.color = 'var(--accent)';
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.currentTarget as HTMLElement).style.background = 'var(--accent)';
+                      (e.currentTarget as HTMLElement).style.color = 'var(--bg)';
                     }}
                   >
-                    Eintritt frei
-                  </span>
+                    Mehr Infos
+                  </a>
                 ) : show.status === 'available' ? (
                   <a
                     href="#"

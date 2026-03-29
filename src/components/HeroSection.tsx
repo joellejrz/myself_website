@@ -10,7 +10,7 @@ export default function HeroSection() {
   const [isMobile, setIsMobile] = useState(false);
   const [isMuted, setIsMuted] = useState(true); // Default strictly true for autoplay policies
   const sectionRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -130,7 +130,8 @@ export default function HeroSection() {
           }}
         >
           <iframe
-            src={`https://www.youtube.com/embed/_3eDIZjvJuA?autoplay=1&mute=${isMuted ? 1 : 0}&loop=1&controls=0&rel=0&disablekb=1&fs=0&modestbranding=1&playsinline=1&playlist=_3eDIZjvJuA`}
+            ref={iframeRef}
+            src="https://www.youtube.com/embed/_3eDIZjvJuA?autoplay=1&mute=1&loop=1&controls=0&rel=0&disablekb=1&fs=0&modestbranding=1&playsinline=1&playlist=_3eDIZjvJuA&enablejsapi=1"
             style={{
               position: 'absolute',
               top: '50%',
@@ -162,7 +163,15 @@ export default function HeroSection() {
           <button
             onClick={(e) => {
               e.preventDefault();
-              setIsMuted(!isMuted);
+              e.stopPropagation();
+              if (iframeRef.current && iframeRef.current.contentWindow) {
+                const command = isMuted ? 'unMute' : 'mute';
+                iframeRef.current.contentWindow.postMessage(
+                  JSON.stringify({ event: 'command', func: command, args: [] }),
+                  '*'
+                );
+                setIsMuted(!isMuted);
+              }
             }}
             aria-label={isMuted ? 'Ton einschalten' : 'Ton ausschalten'}
             style={{
