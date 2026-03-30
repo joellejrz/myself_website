@@ -51,17 +51,17 @@ export default function ImpressumPage() {
           <section>
             <h2 style={{ color: 'var(--text)', marginBottom: '12px', fontSize: '1.2rem', fontFamily: 'var(--font-heading)', letterSpacing: '0.05em', textTransform: 'uppercase' }}>Angaben gemäß § 5 TMG</h2>
             <p>
-              <strong>Mysélf Music</strong><br />
-              [Musterstraße 1]<br />
-              [12345 Musterstadt]
+              <strong>Isabel Stadelmann</strong><br />
+              Ulrichstrasse 100<br />
+              50226 frechen
             </p>
           </section>
 
           <section>
             <h2 style={{ color: 'var(--text)', marginBottom: '12px', fontSize: '1.2rem', fontFamily: 'var(--font-heading)', letterSpacing: '0.05em', textTransform: 'uppercase' }}>Kontakt</h2>
             <p>
-              Telefon: [+49 (0) 123 44 55 66]<br />
-              E-Mail: [hello@myselfmusic.com]
+              Telefon: +49 1573 1081363<br />
+              E-Mail: contact@myself-official.com
             </p>
           </section>
 
